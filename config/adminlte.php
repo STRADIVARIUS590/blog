@@ -335,7 +335,7 @@ return [
             'icon' => 'far fa-fw fa-bookmark',
             'active' => ['admin/tags*']
         ],
-        [
+/*         [
             'text'    => 'multilevel',
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
@@ -372,23 +372,27 @@ return [
                     'url'  => '#',
                 ],
             ],
-        ],
-        ['header' => 'labels'],
+        ], */
+        ['header' => 'OPCIONES DE BLOG'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
+            'text'       => 'Lista de Posts',
+            /* 'icon_color' => 'red',  */
+             'route'      => 'admin.posts.index', 
+            /* 'url'        => '#', */
+            'icon'       =>  'fa fa-fw fa-clipboard'
         ],
         [
+            'text'       => 'Crear nuevo post',
+            /* 'icon_color' => 'yellow', */
+           /*  'url'        => '#', */
+             'route'       => 'admin.posts.create' ,
+             'icon'       =>  'fa fa-fw fa-file'
+        ],
+        /* [
             'text'       => 'information',
             'icon_color' => 'cyan',
             'url'        => '#',
-        ],
+        ], */
     ],
 
     /*
@@ -543,5 +547,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];
