@@ -11,11 +11,19 @@
     <div class="card">
         <div class="card-body">
             {!! Form::open(['route' => 'admin.posts.store', 'autocomplete' => 'off']) !!}
-
+            {!! Form::hidden('user_id', auth()->user()->id) !!}
             <div class="form-group">
                 {!! Form::label('name', 'Nombre') !!}
                 
                 {!! Form::text('name', null, ['class' => 'form-control' ,'placeholder' => 'ingrese el nombre del post']) !!}
+                @error('name')
+                        <div class="text-red">
+                            <small>
+                                {{$message}}
+                            </small>
+                        </div>
+                @enderror
+           
             </div>
 
 
@@ -23,6 +31,14 @@
                 {!! Form::label('slug', 'slug') !!}
                 
                 {!! Form::text('slug', null, ['class' => 'form-control' ,'placeholder' => 'ingrese el slug del post', 'readonly']) !!}
+            
+                @error('slug')
+                    <div class="text-red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </div>
+                @enderror
             </div>
 
 
@@ -31,6 +47,13 @@
             <div class="form-group">
                 {!! Form::label('extract', 'Escribe un resumen de tu publicacion') !!}
                 {!! Form::textarea('extract', null, ['class' => 'form-control']) !!}
+                @error('extract')
+                    <div class="text-red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </div>
+                @enderror
             </div>
 
 
@@ -38,6 +61,13 @@
             <div class="form-group">
                 {!! Form::label('body', 'Escribe tu publicacion') !!}
                 {!! Form::textarea('body', null, ['class' => 'form-control']) !!}
+                @error('body')
+                    <div class="text-red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </div>
+                @enderror
             </div>
 
 
@@ -53,27 +83,49 @@
                         {{$tag->name}}
                     </label>
                 @endforeach
-             {{--    {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
- --}}            </div>
+             {{--    {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!
+ --}}       
+                @error('tags')
+                    <div class="text-red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </div>
+                @enderror
+            </div>
 
 
             <div class="form-group">
                 {!! Form::label('category_id', 'Categoria') !!}
 
                 {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
+                @error('category_id')
+                    <div class="text-red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </div>
+                @enderror
             </div>
 
 
             <div class="form-group">
                 <p class="font-weigth-bold">Estado</p>
                 <label class="mr-3">
-                    {!! Form::radio('status',1, true) !!}
+                    {!! Form::radio('status','1', true) !!}
                     Borrador
                 </label>
                 <label>
-                    {!! Form::radio('status',2) !!}
+                    {!! Form::radio('status','2') !!}
                     Terminado
                 </label>
+                @error('status')
+                    <div class="text-red">
+                        <small>
+                            {{$message}}
+                        </small>
+                    </div>
+                @enderror
             </div>
 
 
@@ -119,7 +171,6 @@
     });
 
 
-    
 </script>
 
 
