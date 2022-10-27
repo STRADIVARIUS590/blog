@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
-use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -43,15 +44,22 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(PostRequest $request)
     {
-        $post = Post::create($request->all());
+         $post = Post::create($request->all());
     
         if($request->tags){
             $post->tags()->attach($request->tags);
         }
-
+        if($request->file('file')){
+            $url = Storage::put('posts', $request->file('file')); 
+            $post->image()->create([
+                'url' => $url
+            ]);
+        }
+      //  return $request->file('file');
         return redirect()->route('admin.posts.edit', $post);
+        
     }
 
     /**
@@ -74,8 +82,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
-        return view('admin.posts.edit', compact('post'));
+        $this->authorize('author', $post); // llamamos al metodo 'author'  del policy y pasamos el post
+        $tags = Tag::all();
+        $categories = Category::pluck('name', 'id');
+        return view('admin.posts.edit', compact('post', 'tags', 'categories'));
 
 
     }
@@ -87,10 +97,38 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
-        //
-        
+        $this->authorize('author', $post); // llamamos al metodo 'author'  del policy y pasamos el post
+   
+        $post->update($request->all());
+
+        $post->tags()->sync($request->tags);
+    /*     if($request->tags){
+            $post->tags()->attach($request->tags);
+        } */
+
+        if($request ->file('file')){
+            $url = Storage::put('posts', $request->file('file'));
+           
+            if($post->image){
+                Storage::delete($post->image->url);
+                   
+                $post->image->update([
+                    'url' => $url
+                ]);
+            }else{
+                $post->image()->create([
+                    'url' => $url
+                ]);
+            }
+        }
+
+
+        return redirect()->route('admin.posts.edit', $post)->with('info' , 'el post se actualizo con exito');
+
+
+   
     }
 
     /**
@@ -101,6 +139,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $this->authorize('author', $post); // llamamos al metodo 'author'  del policy y pasamos el post
+   
+        $post->delete();
+        //Storage::delete($post->image->url);
+        return redirect()->route('admin.posts.index')->with('info' , 'el post se eliminado con exito');
     }
 }

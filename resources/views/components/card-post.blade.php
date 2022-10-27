@@ -1,12 +1,12 @@
 @props(['post'])
 
 <article class="mb-8 bg-white shadow rounded-lg overflow-hidden">
-  {{--   @if($post->image)
+    @if($post->image)
+{{--     {{Storage::url($post->image->url)}} --}}
     <img class="w-full h-72 object-cover object-center" src="{{Storage::url($post->image->url)}}" alt="">
     @else
- --}}
     <img class="w-full h-72 object-cover object-center" src="https://cdn.pixabay.com/photo/2022/04/29/17/48/lofoten-7164179__480.jpg" alt="">
-{{--    @endif --}}
+    @endif
     <div class="px-6 py-4">
         <h1 class="font-bold text-xl mb-2">
             <a href="{{route('posts.show', $post)}}">{{$post->name}}</a>

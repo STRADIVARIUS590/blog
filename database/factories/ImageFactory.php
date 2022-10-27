@@ -18,7 +18,7 @@ class ImageFactory extends Factory
     {
     
         return [
-            'url' => 'post/no-image.png'
+            'url' => 'posts/no-image.png'
             //
         ];
     }
