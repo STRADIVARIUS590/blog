@@ -22,15 +22,18 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-       // Storage::deleteDirectory('post');
+       //Storage::deleteDirectory('post');
        // Storage::makeDirectory('post');// crea una carpeta en storage 
      
+
+       $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
 
         Category::factory(4)->create();
         Tag::factory(8)->create();
-  
+
         $this->call(PostSeeder::class);
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

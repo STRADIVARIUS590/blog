@@ -316,11 +316,20 @@ return [
         [
             'text'        => 'Dashboard',
             'route'         => 'admin.home',
-            'icon'        => 'far fa-fw fa-file fa-fw',
+            'icon'        => 'far fa-fw fa-file fa-fw'
          /*    'icon'        => "fas fa tachometer-alt", */
 /*             'label'       => 4,
             'label_color' => 'success', */
         ],
+
+
+        [
+            'text' => 'Usuarios',
+            'icon' => 'fa fas-users',
+            'route' => 'admin.users.index',
+            'icon' => 'fas fa-users fa-fw'
+        ],
+
         ['header' => 'ADMINISTRADOR'],
         [
             'text' => 'Categorias',
