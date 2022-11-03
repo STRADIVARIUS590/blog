@@ -316,7 +316,8 @@ return [
         [
             'text'        => 'Dashboard',
             'route'         => 'admin.home',
-            'icon'        => 'far fa-fw fa-file fa-fw'
+            'icon'        => 'far fa-fw fa-file fa-fw',
+            'can'         => 'admin.users.index'// solo a ese permiso
          /*    'icon'        => "fas fa tachometer-alt", */
 /*             'label'       => 4,
             'label_color' => 'success', */
@@ -327,15 +328,17 @@ return [
             'text' => 'Usuarios',
             'icon' => 'fa fas-users',
             'route' => 'admin.users.index',
-            'icon' => 'fas fa-users fa-fw'
+            'icon' => 'fas fa-users fa-fw',
+            'can'  => 'admin.users.index'
         ],
 
-        ['header' => 'ADMINISTRADOR'],
+      /*   ['header' => 'ADMINISTRADOR'], */
         [
             'text' => 'Categorias',
             'route'  => 'admin.categories.index',
             'icon' => 'fab fa-fw fa-buffer',
-            'active' => ['admin/categories*']
+            'active' => ['admin/categories*'],
+            'can'         => 'admin.categories.index'
         ],
 
    
@@ -343,7 +346,8 @@ return [
             'text' => 'Etiquetas',
             'route'  => 'admin.tags.index',
             'icon' => 'far fa-fw fa-bookmark',
-            'active' => ['admin/tags*']
+            'active' => ['admin/tags*'],
+            'can'         => 'admin.tags.index'
         ],
 /*         [
             'text'    => 'multilevel',
@@ -389,14 +393,16 @@ return [
             /* 'icon_color' => 'red',  */
              'route'      => 'admin.posts.index', 
             /* 'url'        => '#', */
-            'icon'       =>  'fa fa-fw fa-clipboard'
+            'icon'       =>  'fa fa-fw fa-clipboard',
+            'can'       => 'admin.posts.index'
         ],
         [
             'text'       => 'Crear nuevo post',
             /* 'icon_color' => 'yellow', */
            /*  'url'        => '#', */
              'route'       => 'admin.posts.create' ,
-             'icon'       =>  'fa fa-fw fa-file'
+             'icon'       =>  'fa fa-fw fa-file',
+             'can'         => 'admin.posts.create'
         ],
         /* [
             'text'       => 'information',

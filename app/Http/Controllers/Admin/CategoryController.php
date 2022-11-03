@@ -8,7 +8,17 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    //
+    
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.categories.index')->only('index');
+        $this->middleware('can:admin.categories.create')->only('create', 'store');
+        $this->middleware('can:admin.categories.edit')->only('edit', 'update');
+        $this->middleware('can:admin.categories.destroy')->only('destroy');
+
+    }
+
 
     public static function index(){
         $categories = Category::all();
@@ -31,9 +41,9 @@ class CategoryController extends Controller
 
 
 
-    public static function show(Category $category){
+/*     public static function show(Category $category){
         return view('admin.categories.show', compact('category'));
-    }
+    } */
 
     public static function edit(Category $category){
         return view('admin.categories.edit', compact('category'));
